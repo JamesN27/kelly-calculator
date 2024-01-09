@@ -1,6 +1,5 @@
 'use client';
-
-import './KellyCriterionForm.css'; // Add a CSS file for styling
+import './KellyCriterionForm.css';
 import React, { useState } from 'react';
 
 const KellyCriterionForm = () => {
@@ -35,6 +34,13 @@ const KellyCriterionForm = () => {
     }
   };
 
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      calculateKelly();
+    }
+  };
+
   return (
     <div>
       <h2>Kelly Criterion Calculator</h2>
@@ -45,6 +51,7 @@ const KellyCriterionForm = () => {
             type="number"
             value={winProbability}
             onChange={(e) => setWinProbability(e.target.value)}
+            onKeyPress={handleKeyPress}
           />
         </label>
       </div>
@@ -55,6 +62,7 @@ const KellyCriterionForm = () => {
             type="number"
             value={odds}
             onChange={(e) => setOdds(e.target.value)}
+            onKeyPress={handleKeyPress}
           />
         </label>
       </div>
@@ -65,6 +73,7 @@ const KellyCriterionForm = () => {
             type="number"
             value={bankroll}
             onChange={(e) => setBankroll(e.target.value)}
+            onKeyPress={handleKeyPress}
           />
         </label>
       </div>
@@ -76,6 +85,7 @@ const KellyCriterionForm = () => {
             step="0.01"
             value={fractionalKellyInput}
             onChange={(e) => setFractionalKellyInput(e.target.value)}
+            onKeyPress={handleKeyPress}
           />
         </label>
       </div>
