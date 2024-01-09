@@ -1,0 +1,9 @@
+.positive {
+  color: rgb(27, 179, 27);
+  font-weight: bold;
+}
+
+.negative {
+  color: red;
+  font-weight: bold;
+}

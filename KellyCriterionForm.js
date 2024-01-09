@@ -1,5 +1,6 @@
 'use client';
 
+import './KellyCriterionForm.css'; // Add a CSS file for styling
 import { useState } from 'react';
 
 const KellyCriterionForm = () => {
@@ -72,8 +73,8 @@ const KellyCriterionForm = () => {
       <button onClick={calculateKelly}>Calculate</button>
       {betAmount !== null && (
         <div>
-          <p>
-            Bet Amount rounded:{' '}
+          <p className={betAmount >= 0 ? 'positive' : 'negative'}>
+            Bet Amount (rounded to full EUR):{' '}
             {betAmount !== 0
               ? `${betAmount.toLocaleString('en-US', {
                   style: 'currency',
