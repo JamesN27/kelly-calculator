@@ -22,11 +22,17 @@ const KellyCriterionForm = () => {
     const kelly = winProbabilityNum - q / b;
 
     const bet = kelly * bankrollNum * fractionalKellyInputNum;
-    setBetAmount(Math.round(bet)); // Rounding to the nearest whole euro value
+    const roundedBetAmount = Math.round(bet); // Rounding to the nearest whole euro value
 
-    const expectedValueValue =
-      bet * ((oddsNum - 1) * winProbabilityNum + -1 * q);
-    setExpectedValue(expectedValueValue);
+    setBetAmount(roundedBetAmount);
+
+    if (roundedBetAmount >= 0) {
+      const expectedValueValue =
+        roundedBetAmount * ((oddsNum - 1) * winProbabilityNum + -1 * q);
+      setExpectedValue(expectedValueValue);
+    } else {
+      setExpectedValue(null);
+    }
   };
 
   return (
@@ -85,16 +91,21 @@ const KellyCriterionForm = () => {
                 })}`
               : `0 €`}
           </p>
-          {betAmount >= 0 && expectedValue !== null && (
+          {expectedValue !== null && betAmount >= 0 && (
             <p className={expectedValue >= 0 ? 'positive' : 'negative'}>
               Expected Value:{' '}
               <strong>
+                {' '}
                 {expectedValue.toLocaleString('en-US', {
                   style: 'currency',
                   currency: 'EUR',
                 })}
-              </strong>
+              </strong>{' '}
+              💰🤑
             </p>
+          )}
+          {betAmount !== null && betAmount < 0 && (
+            <p className="negative">Don't bet, you idiot! 😒</p>
           )}
         </div>
       )}
