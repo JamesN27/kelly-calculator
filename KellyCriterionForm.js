@@ -85,7 +85,7 @@ const KellyCriterionForm = () => {
                 })}`
               : `0 €`}
           </p>
-          {expectedValue !== null && (
+          {betAmount >= 0 && expectedValue !== null && (
             <p className={expectedValue >= 0 ? 'positive' : 'negative'}>
               Expected Value:{' '}
               <strong>
