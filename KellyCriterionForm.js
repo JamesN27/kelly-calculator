@@ -1,7 +1,7 @@
 'use client';
 
 import './KellyCriterionForm.css'; // Add a CSS file for styling
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 const KellyCriterionForm = () => {
   const [winProbability, setWinProbability] = useState('');
@@ -9,10 +9,10 @@ const KellyCriterionForm = () => {
   const [bankroll, setBankroll] = useState('');
   const [fractionalKellyInput, setFractionalKellyInput] = useState('');
   const [betAmount, setBetAmount] = useState(null);
+  const [expectedValue, setExpectedValue] = useState(null);
 
   const calculateKelly = () => {
     const winProbabilityNum = 1 / parseFloat(winProbability);
-
     const oddsNum = parseFloat(odds);
     const bankrollNum = parseFloat(bankroll);
     const fractionalKellyInputNum = parseFloat(fractionalKellyInput);
@@ -22,8 +22,11 @@ const KellyCriterionForm = () => {
     const kelly = winProbabilityNum - q / b;
 
     const bet = kelly * bankrollNum * fractionalKellyInputNum;
-
     setBetAmount(Math.round(bet)); // Rounding to the nearest whole euro value
+
+    const expectedValueValue =
+      bet * ((oddsNum - 1) * winProbabilityNum + -1 * q);
+    setExpectedValue(expectedValueValue);
   };
 
   return (
@@ -82,6 +85,17 @@ const KellyCriterionForm = () => {
                 })}`
               : `0 €`}
           </p>
+          {expectedValue !== null && (
+            <p className={expectedValue >= 0 ? 'positive' : 'negative'}>
+              Expected Value:{' '}
+              <strong>
+                {expectedValue.toLocaleString('en-US', {
+                  style: 'currency',
+                  currency: 'EUR',
+                })}
+              </strong>
+            </p>
+          )}
         </div>
       )}
     </div>
