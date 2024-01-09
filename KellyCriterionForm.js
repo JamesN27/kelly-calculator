@@ -16,13 +16,13 @@ const KellyCriterionForm = () => {
     const bankrollNum = parseFloat(bankroll);
     const fractionalKellyInputNum = parseFloat(fractionalKellyInput);
 
-    const b = oddsNum - 1; // b represents the bet gained with a win
+    const b = oddsNum - 1;
     const q = 1 - winProbabilityNum;
     const kelly = winProbabilityNum - q / b;
 
     const bet = kelly * bankrollNum * fractionalKellyInputNum;
 
-    setBetAmount(bet);
+    setBetAmount(Math.round(bet)); // Rounding to the nearest whole euro value
   };
 
   return (
@@ -30,7 +30,7 @@ const KellyCriterionForm = () => {
       <h2>Kelly Criterion Calculator</h2>
       <div>
         <label>
-          Win Probability (%):
+          Fair Odds:
           <input
             type="number"
             value={winProbability}
@@ -40,7 +40,7 @@ const KellyCriterionForm = () => {
       </div>
       <div>
         <label>
-          Odds (e.g., 2 for 2:1 odds):
+          Bookmaker Odds:
           <input
             type="number"
             value={odds}
@@ -72,7 +72,15 @@ const KellyCriterionForm = () => {
       <button onClick={calculateKelly}>Calculate</button>
       {betAmount !== null && (
         <div>
-          <p>Bet Amount: {betAmount}</p>
+          <p>
+            Bet Amount rounded:{' '}
+            {betAmount !== 0
+              ? `${betAmount.toLocaleString('en-US', {
+                  style: 'currency',
+                  currency: 'EUR',
+                })}`
+              : `0 €`}
+          </p>
         </div>
       )}
     </div>
