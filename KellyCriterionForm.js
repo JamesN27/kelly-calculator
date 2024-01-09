@@ -10,7 +10,8 @@ const KellyCriterionForm = () => {
   const [betAmount, setBetAmount] = useState(null);
 
   const calculateKelly = () => {
-    const winProbabilityNum = parseFloat(winProbability) / 100; // Convert percentage to decimal
+    const winProbabilityNum = 1 / parseFloat(winProbability);
+
     const oddsNum = parseFloat(odds);
     const bankrollNum = parseFloat(bankroll);
     const fractionalKellyInputNum = parseFloat(fractionalKellyInput);
